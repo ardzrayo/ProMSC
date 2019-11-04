@@ -1,0 +1,103 @@
+﻿@model ProMSC.Areas.Servidores.Models.Servidor
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<h4>Servidor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="idvps" />
+            <div class="form-group">
+                <label asp-for="idcliente" class="control-label"></label>
+                <select asp-for="idcliente" class="form-control" asp-items="ViewBag.idcliente"></select>
+                <span asp-validation-for="idcliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nombrevps" class="control-label"></label>
+                <input asp-for="nombrevps" class="form-control" />
+                <span asp-validation-for="nombrevps" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cpu" class="control-label"></label>
+                <input asp-for="cpu" class="form-control" />
+                <span asp-validation-for="cpu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ram" class="control-label"></label>
+                <input asp-for="ram" class="form-control" />
+                <span asp-validation-for="ram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ips" class="control-label"></label>
+                <input asp-for="ips" class="form-control" />
+                <span asp-validation-for="ips" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="discoduro" class="control-label"></label>
+                <input asp-for="discoduro" class="form-control" />
+                <span asp-validation-for="discoduro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="osystem" class="control-label"></label>
+                <input asp-for="osystem" class="form-control" />
+                <span asp-validation-for="osystem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="database" class="control-label"></label>
+                <input asp-for="database" class="form-control" />
+                <span asp-validation-for="database" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="desktop" class="control-label"></label>
+                <input asp-for="desktop" class="form-control" />
+                <span asp-validation-for="desktop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="anchobanda" class="control-label"></label>
+                <input asp-for="anchobanda" class="form-control" />
+                <span asp-validation-for="anchobanda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ip_publica" class="control-label"></label>
+                <input asp-for="ip_publica" class="form-control" />
+                <span asp-validation-for="ip_publica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ip_privada" class="control-label"></label>
+                <input asp-for="ip_privada" class="form-control" />
+                <span asp-validation-for="ip_privada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="descripcion" class="control-label"></label>
+                <input asp-for="descripcion" class="form-control" />
+                <span asp-validation-for="descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="estado" class="control-label"></label>
+                <select asp-for="estado" class="form-control">
+                    <option value="true">Activo</option>
+                    <option value="false">Suspendido</option>
+                </select>
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Regresar al listado</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,103 @@
+﻿@model ProMSC.Areas.Servidores.Models.Servidor
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Servidor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nombrevps)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nombrevps)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cpu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cpu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ram)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ram)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ips)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ips)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.discoduro)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.discoduro)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.osystem)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.osystem)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.database)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.database)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.desktop)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.desktop)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.anchobanda)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.anchobanda)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ip_publica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ip_publica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ip_privada)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ip_privada)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cliente.razonsocial)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.idvps">Editar</a> |
+    <a asp-action="Index">Regresar al listado</a>
+</div>
