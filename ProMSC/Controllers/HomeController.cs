@@ -16,7 +16,6 @@ namespace ProMSC.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            var a = 1;
         }
 
         public IActionResult Index()
