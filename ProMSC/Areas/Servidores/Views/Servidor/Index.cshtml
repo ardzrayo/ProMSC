@@ -5,11 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>Servidores</h1>
+<h1>Servidores</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    @Html.ActionLink("Crear Nuevo", "Create")
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        Nombre VPS : @Html.TextBox("BuscarNombre")  <input type="submit" value="Buscar" />
+    </p>
+    }
 </p>
+@*<p>
+     <a asp-action="Create">Crear Nuevo</a>
+</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -59,56 +69,57 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombrevps)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cpu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ram)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ips)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.discoduro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.osystem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.database)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.desktop)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.anchobanda)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ip_publica)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ip_privada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cliente.razonsocial)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idvps">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.idvps">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.idvps">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombrevps)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cpu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ram)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ips)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.discoduro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.osystem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.database)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.desktop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.anchobanda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ip_publica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ip_privada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cliente.razonsocial)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idvps">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.idvps">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.idvps">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

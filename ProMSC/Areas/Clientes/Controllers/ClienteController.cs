@@ -21,9 +21,19 @@ namespace ProMSC.Areas.Clientes.Controllers
         }
 
         // GET: Clientes/Cliente
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Cliente.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string BuscarNombre)
         {
-            return View(await _context.Cliente.ToListAsync());
+            var Cliente = from cr in _context.Cliente select cr;
+            if (!String.IsNullOrEmpty(BuscarNombre))
+            {
+                Cliente = Cliente.Where(c => c.razonsocial.Contains(BuscarNombre));
+            }
+            return View(await Cliente.ToListAsync());
         }
 
         // GET: Clientes/Cliente/Details/5

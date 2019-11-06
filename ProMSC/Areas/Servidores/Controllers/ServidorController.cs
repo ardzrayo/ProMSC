@@ -21,10 +21,19 @@ namespace ProMSC.Areas.Servidores.Controllers
         }
 
         // GET: Servidores/Servidor
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var applicationDbContext = _context.Servidor.Include(s => s.cliente);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
+        public async Task<IActionResult> Index(string BuscarNombre)
         {
-            var applicationDbContext = _context.Servidor.Include(s => s.cliente);
-            return View(await applicationDbContext.ToListAsync());
+            var Servidor = from cr in _context.Servidor select cr;
+            if (!String.IsNullOrEmpty(BuscarNombre))
+            {
+                Servidor = Servidor.Where(c => c.nombrevps.Contains(BuscarNombre));
+            }
+            return View(await Servidor.ToListAsync());
         }
 
         // GET: Servidores/Servidor/Details/5
