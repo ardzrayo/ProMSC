@@ -7,19 +7,16 @@
 
 <h1>Servidores</h1>
 
-<p>
-    @Html.ActionLink("Crear Nuevo", "Create")
 
-    @using (Html.BeginForm())
-    {
-    <p>
-        Nombre VPS : @Html.TextBox("BuscarNombre")  <button type="submit"><i class="fas fa-search"></i> Buscar</button>
-    </p>
-    }
+<p>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
-@*<p>
-     <a asp-action="Create">Crear Nuevo</a>
-</p>*@
+@using (Html.BeginForm())
+{
+<p>
+    Nombre VPS : @Html.TextBox("BuscarNombre")  <button type="submit"><i class="fas fa-search"></i> Buscar</button> <a asp-action="Index">Todos los registros</a> @*| Registros mostrados @Model.TotalR*@
+</p>
+}
 <table class="table">
     <thead>
         <tr>

@@ -28,14 +28,29 @@ namespace ProMSC.Areas.Servidores.Controllers
         //    var applicationDbContext = _context.Servidor.Include(s => s.cliente);
         //    return View(await applicationDbContext.ToListAsync());
         //}
-        public async Task<IActionResult> Index(string BuscarNombre)
+        public async Task<IActionResult> Index(string BuscarNombre, string currentFilter, int? page)
         {
+
+            if (BuscarNombre != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                BuscarNombre = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = BuscarNombre;
+
             var Servidor = from cr in _context.Servidor select cr;
+
             if (!String.IsNullOrEmpty(BuscarNombre))
             {
                 Servidor = Servidor.Where(c => c.nombrevps.Contains(BuscarNombre) /*|| c.idcliente.Contains(BuscarNombre)*/);
             }
-            return View(await Servidor.ToListAsync());
+            //return View(await Servidor.ToListAsync());
+            int pageSize = 100;
+            return View(await Paginacion<Servidor>.CreateAsync(Servidor.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Servidores/Servidor/Details/5
