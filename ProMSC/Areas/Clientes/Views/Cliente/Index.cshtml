@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.razonsocial)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RazonSocialSortParm"]">@Html.DisplayNameFor(model => model.razonsocial)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ubicacion)
@@ -38,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EstadoSortParm"]">@Html.DisplayNameFor(model => model.estado)</a>
             </th>
             <th></th>
         </tr>

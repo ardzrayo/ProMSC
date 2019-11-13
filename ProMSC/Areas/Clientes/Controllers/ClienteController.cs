@@ -26,14 +26,36 @@ namespace ProMSC.Areas.Clientes.Controllers
         //    return View(await _context.Cliente.ToListAsync());
         //}
 
-        public async Task<IActionResult> Index(string BuscarNombre)
+        public async Task<IActionResult> Index(string BuscarNombre, string sortOrder)
         {
+            ViewData["RazonSocialSortParm"] = String.IsNullOrEmpty(sortOrder) ? "RazonSocial_desc" : "";
+            ViewData["EstadoSortParm"] = sortOrder == "Estado_asc" ? "Estado_desc" : "Estado_asc";
+
             var Cliente = from cr in _context.Cliente select cr;
+
             if (!String.IsNullOrEmpty(BuscarNombre))
             {
                 Cliente = Cliente.Where(c => c.razonsocial.Contains(BuscarNombre));
             }
-            return View(await Cliente.ToListAsync());
+
+            switch (sortOrder)
+            {
+                case "RazonSocial_desc":
+                    Cliente = Cliente.OrderByDescending(s => s.razonsocial);
+                    break;
+                case "Estado_desc":
+                    Cliente = Cliente.OrderByDescending(s => s.estado);
+                    break;
+                case "Estado_asc":
+                    Cliente = Cliente.OrderBy(s => s.estado);
+                    break;
+                default:
+                    Cliente = Cliente.OrderBy(s => s.razonsocial);
+                    break;
+            }
+
+            return View(await Cliente.AsNoTracking().ToListAsync());
+            //return View(await Cliente.ToListAsync());
         }
 
         // GET: Clientes/Cliente/Details/5
