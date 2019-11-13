@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using ProMSC.Data;
 namespace ProMSC.Areas.Clientes.Controllers
 {
     [Area("Clientes")]
+    [Authorize]
     public class ClienteController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,10 +28,22 @@ namespace ProMSC.Areas.Clientes.Controllers
         //    return View(await _context.Cliente.ToListAsync());
         //}
 
-        public async Task<IActionResult> Index(string BuscarNombre, string sortOrder)
+        public async Task<IActionResult> Index(string BuscarNombre, string sortOrder, string currentFilter, int? page)
         {
             ViewData["RazonSocialSortParm"] = String.IsNullOrEmpty(sortOrder) ? "RazonSocial_desc" : "";
             ViewData["EstadoSortParm"] = sortOrder == "Estado_asc" ? "Estado_desc" : "Estado_asc";
+
+            if (BuscarNombre != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                BuscarNombre = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = BuscarNombre;
+            ViewData["CurrentSort"] = sortOrder;
 
             var Cliente = from cr in _context.Cliente select cr;
 
@@ -54,8 +68,10 @@ namespace ProMSC.Areas.Clientes.Controllers
                     break;
             }
 
-            return View(await Cliente.AsNoTracking().ToListAsync());
+            //return View(await Cliente.AsNoTracking().ToListAsync());
             //return View(await Cliente.ToListAsync());
+            int pageSize = 3;
+            return View(await Paginacion<Cliente>.CreateAsync(Cliente.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Clientes/Cliente/Details/5

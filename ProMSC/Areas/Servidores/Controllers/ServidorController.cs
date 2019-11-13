@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using ProMSC.Data;
 namespace ProMSC.Areas.Servidores.Controllers
 {
     [Area("Servidores")]
+    [Authorize]
     public class ServidorController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -31,7 +33,7 @@ namespace ProMSC.Areas.Servidores.Controllers
             var Servidor = from cr in _context.Servidor select cr;
             if (!String.IsNullOrEmpty(BuscarNombre))
             {
-                Servidor = Servidor.Where(c => c.nombrevps.Contains(BuscarNombre));
+                Servidor = Servidor.Where(c => c.nombrevps.Contains(BuscarNombre) /*|| c.idcliente.Contains(BuscarNombre)*/);
             }
             return View(await Servidor.ToListAsync());
         }
