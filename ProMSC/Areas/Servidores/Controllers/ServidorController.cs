@@ -28,8 +28,10 @@ namespace ProMSC.Areas.Servidores.Controllers
         //    var applicationDbContext = _context.Servidor.Include(s => s.cliente);
         //    return View(await applicationDbContext.ToListAsync());
         //}
-        public async Task<IActionResult> Index(string BuscarNombre, string currentFilter, int? page)
+        public async Task<IActionResult> Index(string BuscarNombre, string sortOrder, string currentFilter, int? page)
         {
+            ViewData["NombrevpsSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Nombrevps_desc" : "";
+            ViewData["EstadoSortParm"] = sortOrder == "Estado_asc" ? "Estado_desc" : "Estado_asc";
 
             if (BuscarNombre != null)
             {
@@ -41,6 +43,7 @@ namespace ProMSC.Areas.Servidores.Controllers
             }
 
             ViewData["CurrentFilter"] = BuscarNombre;
+            ViewData["CurrentSort"] = sortOrder;
 
             var Servidor = from cr in _context.Servidor select cr;
 
@@ -48,8 +51,24 @@ namespace ProMSC.Areas.Servidores.Controllers
             {
                 Servidor = Servidor.Where(c => c.nombrevps.Contains(BuscarNombre) /*|| c.idcliente.Contains(BuscarNombre)*/);
             }
+
+            switch (sortOrder)
+            {
+                case "Nombrevps_desc":
+                    Servidor = Servidor.OrderByDescending(s => s.nombrevps);
+                    break;
+                case "Estado_desc":
+                    Servidor = Servidor.OrderByDescending(s => s.estado);
+                    break;
+                case "Estado_asc":
+                    Servidor = Servidor.OrderBy(s => s.estado);
+                    break;
+                default:
+                    Servidor = Servidor.OrderBy(s => s.nombrevps);
+                    break;
+            }
             //return View(await Servidor.ToListAsync());
-            int pageSize = 100;
+            int pageSize = 3;
             return View(await Paginacion<Servidor>.CreateAsync(Servidor.AsNoTracking(), page ?? 1, pageSize));
         }
 

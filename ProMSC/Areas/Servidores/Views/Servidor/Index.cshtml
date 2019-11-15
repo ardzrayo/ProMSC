@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProMSC.Areas.Servidores.Models.Servidor>
+﻿@model Paginacion<ProMSC.Areas.Servidores.Models.Servidor>
 
 @{
     ViewData["Title"] = "Servidores";
@@ -13,54 +13,54 @@
 </p>
 @using (Html.BeginForm())
 {
-<p>
-    Nombre VPS : @Html.TextBox("BuscarNombre")  <button type="submit"><i class="fas fa-search"></i> Buscar</button> <a asp-action="Index">Todos los registros</a> @*| Registros mostrados @Model.TotalR*@
-</p>
+    <p>
+        Nombre VPS : @Html.TextBox("BuscarNombre")  <button type="submit"><i class="fas fa-search"></i> Buscar</button> <a asp-action="Index">Todos los registros</a> | Registros mostrados @Model.TotalR
+    </p>
 }
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nombrevps)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NombrevpsSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nombre VPS</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cpu)
+                CPU
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ram)
+                RAM
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ips)
+                IP's
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.discoduro)
+                Disco Duro (GB)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.osystem)
+                Sistema Operativo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.database)
+                Base de datos
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.desktop)
+                Escritorios Remotos
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.anchobanda)
+                Ancho de banda
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ip_publica)
+                Ingrese IP Publica
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ip_privada)
+                Ingrese IP Privada
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.descripcion)
+                Descripción
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EstadoSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Estado</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cliente)
+                Cliente
             </th>
             <th></th>
         </tr>
@@ -120,3 +120,31 @@
         }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Anterior
+</a>
+@for (int i = 1; i <= Model.TotalPages; i++)
+{
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-page="@i"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default">
+        @i
+    </a>
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Siguiente
+</a>
